@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         FontSize="24"
         Topmost="True"
-        Title="MainWindow" Height="350" Width="525">
+        Title="{Binding FirstName}" Height="350" Width="525">
     <d:DesignProperties.DataContext>
         <local:PersonContext FirstName="Joe" LastName="Duffy" />
     </d:DesignProperties.DataContext>
