@@ -7,15 +7,17 @@ namespace UI_TEST
 {
     internal class PersonContext : ReactiveObject
     {
+        private readonly ObservableAsPropertyHelper<string> _greeting;
+
         private string _firstName;
         private string _lastName;
-        private string _greeting;
 
         public PersonContext()
         {
-            this.WhenAnyValue(x => x.FirstName, x => x.LastName,
+            _greeting = this
+                .WhenAnyValue(x => x.FirstName, x => x.LastName,
                     (firstName, lastName) => $"Hello {firstName} {lastName}")
-                .BindTo(this, x => x.Greeting);
+                .ToProperty(this, x => x.Greeting);
         }
 
         public string FirstName
@@ -30,10 +32,6 @@ namespace UI_TEST
             set => this.RaiseAndSetIfChanged(ref _lastName, value);
         }
 
-        public string Greeting
-        {
-            get => _greeting;
-            private set => this.RaiseAndSetIfChanged(ref _greeting, value);
-        }
+        public string Greeting => _greeting.Value;
     }
 }
