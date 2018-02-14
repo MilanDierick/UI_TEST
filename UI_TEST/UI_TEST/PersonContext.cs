@@ -1,46 +1,39 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using ReactiveUI;
 using UI_TEST.Annotations;
 
 namespace UI_TEST
 {
-    internal class PersonContext : INotifyPropertyChanged
+    internal class PersonContext : ReactiveObject
     {
         private string _firstName;
         private string _lastName;
+        private string _greeting;
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public PersonContext()
+        {
+            this.WhenAnyValue(x => x.FirstName, x => x.LastName,
+                    (firstName, lastName) => $"Hello {firstName} {lastName}")
+                .BindTo(this, x => x.Greeting);
+        }
 
         public string FirstName
         {
             get => _firstName;
-            set
-            {
-                if (value == _firstName) return;
-                _firstName = value;
-                NotifyPropertyChanged();
-                NotifyPropertyChanged(nameof(Greeting));
-            }
+            set => this.RaiseAndSetIfChanged(ref _firstName, value);
         }
 
         public string LastName
         {
             get => _lastName;
-            set
-            {
-                if (value == _lastName) return;
-                _lastName = value;
-                NotifyPropertyChanged();
-                NotifyPropertyChanged(nameof(Greeting));
-            }
+            set => this.RaiseAndSetIfChanged(ref _lastName, value);
         }
 
-        public string Greeting => $"Hello {_firstName} {_lastName}";
-
-        [NotifyPropertyChangedInvocator]
-        protected virtual void NotifyPropertyChanged([CallerMemberName] string propertyName = null)
+        public string Greeting
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            get => _greeting;
+            private set => this.RaiseAndSetIfChanged(ref _greeting, value);
         }
     }
 }
