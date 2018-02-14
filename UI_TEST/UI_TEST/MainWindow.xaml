@@ -7,34 +7,19 @@
         mc:Ignorable="d"
         FontSize="24"
         Topmost="True"
-        Title="{Binding FirstName}" Height="350" Width="525">
+        SizeToContent="Height">
     <d:DesignProperties.DataContext>
-        <local:PersonContext FirstName="Joe" LastName="Duffy" />
+        <local:PopulationContext/>
     </d:DesignProperties.DataContext>
     
-    <Grid VerticalAlignment="Top">
-        <Grid.Resources>
-            <Style TargetType="TextBlock">
-                <Setter Property="Padding" Value="5"/>
-            </Style>
-        </Grid.Resources>
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
+    <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-
-        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding FirstName}"/>
-        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding LastName}"/>
-        <TextBlock x:Name="GreetingTextBlock" Grid.Row="2" Grid.Column="1" Text="{Binding Greeting}"/>
-
-        <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" Text="First name: "/>
-        <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" Text="Last name: "/>
-        <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" Text="Greeting: "/>
-
+        <ContentPresenter Grid.Column="0" Content="{Binding Person1}" ContentTemplate="{StaticResource PersonDetailTemplate}" />
+        <ContentPresenter Grid.Column="1" Content="{Binding Person2}" ContentTemplate="{StaticResource PersonDetailTemplate}"/>
     </Grid>
+    
+ 
 </Window>

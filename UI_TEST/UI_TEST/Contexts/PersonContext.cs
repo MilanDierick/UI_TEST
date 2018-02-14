@@ -5,7 +5,7 @@ using UI_TEST.Annotations;
 
 namespace UI_TEST
 {
-    internal class PersonContext : ReactiveObject
+    public class PersonContext : ReactiveObject
     {
         private readonly ObservableAsPropertyHelper<string> _greeting;
 

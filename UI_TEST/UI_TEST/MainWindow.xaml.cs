@@ -24,10 +24,8 @@ namespace UI_TEST
         {
             InitializeComponent();
 
-            DataContext = new PersonContext
+            DataContext = new PopulationContext()
             {
-                FirstName = "Foo",
-                LastName = "Bar"
             };
         }
     }
