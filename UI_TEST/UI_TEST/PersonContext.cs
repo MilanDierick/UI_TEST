@@ -19,6 +19,7 @@ namespace UI_TEST
                 if (value == _firstName) return;
                 _firstName = value;
                 NotifyPropertyChanged();
+                NotifyPropertyChanged(nameof(Greeting));
             }
         }
 
@@ -30,6 +31,7 @@ namespace UI_TEST
                 if (value == _lastName) return;
                 _lastName = value;
                 NotifyPropertyChanged();
+                NotifyPropertyChanged(nameof(Greeting));
             }
         }
 
