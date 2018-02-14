@@ -7,7 +7,8 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Templates/PersonDetailView.xaml"/>
-            </ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Templates/PersonNameView.xaml"/>
+                </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

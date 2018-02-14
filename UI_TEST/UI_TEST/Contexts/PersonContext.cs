@@ -1,4 +1,5 @@
-﻿using System.Reactive.Linq;
+﻿using System;
+using System.Reactive.Linq;
 using ReactiveUI;
 
 namespace UI_TEST
@@ -8,8 +9,8 @@ namespace UI_TEST
         private readonly ObservableAsPropertyHelper<string> _fullName;
         private readonly ObservableAsPropertyHelper<string> _bestFriendName;
 
-        private string _firstName;
-        private string _lastName;
+        private string _firstName = "Foo";
+        private string _lastName = "Bar";
         private PersonContext _bestFriend;
 
         public PersonContext()

@@ -1,14 +1,32 @@
-﻿namespace UI_TEST
+﻿using System.Linq;
+using ReactiveUI;
+
+namespace UI_TEST
 {
-    public class PopulationContext
+    public class PopulationContext : ReactiveObject
     {
-        public PersonContext Person1 { get; } = new PersonContext();
-        public PersonContext Person2 { get; } = new PersonContext();
+        private PersonContext _selection;
 
         public PopulationContext()
         {
-            Person1.BestFriend = Person2;
-            Person2.BestFriend = Person1;
+            People = new ReactiveList<PersonContext>
+            {
+                new PersonContext(),
+                new PersonContext(),
+                new PersonContext(),
+                new PersonContext(),
+                new PersonContext()
+            };
+
+            Selection = People.FirstOrDefault();
+        }
+
+        public ReactiveList<PersonContext> People { get; }
+
+        public PersonContext Selection
+        {
+            get => _selection;
+            set => this.RaiseAndSetIfChanged(ref _selection, value);
         }
     }
 }
