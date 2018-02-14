@@ -1,23 +1,28 @@
-﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
+﻿using System.Reactive.Linq;
 using ReactiveUI;
-using UI_TEST.Annotations;
 
 namespace UI_TEST
 {
     public class PersonContext : ReactiveObject
     {
-        private readonly ObservableAsPropertyHelper<string> _greeting;
+        private readonly ObservableAsPropertyHelper<string> _fullName;
+        private readonly ObservableAsPropertyHelper<string> _bestFriendName;
 
         private string _firstName;
         private string _lastName;
+        private PersonContext _bestFriend;
 
         public PersonContext()
         {
-            _greeting = this
+            _fullName = this
                 .WhenAnyValue(x => x.FirstName, x => x.LastName,
-                    (firstName, lastName) => $"Hello {firstName} {lastName}")
-                .ToProperty(this, x => x.Greeting);
+                    (firstName, lastName) => $"{firstName} {lastName}")
+                .ToProperty(this, x => x.FullName);
+
+            _bestFriendName = this
+                .WhenAnyValue(x => x.BestFriend.FullName)
+                .Select(fullName => $"{fullName} is my best friend.")
+                .ToProperty(this, x => x.BestFriendName);
         }
 
         public string FirstName
@@ -32,6 +37,15 @@ namespace UI_TEST
             set => this.RaiseAndSetIfChanged(ref _lastName, value);
         }
 
-        public string Greeting => _greeting.Value;
+        public PersonContext BestFriend
+        {
+            get => _bestFriend;
+            set => this.RaiseAndSetIfChanged(ref _bestFriend, value);
+        }
+
+        public string FullName => _fullName.Value;
+
+        public string BestFriendName => _bestFriendName.Value;
+
     }
 }
