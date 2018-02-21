@@ -13,6 +13,7 @@
                 <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
+                <RowDefinition/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
@@ -26,6 +27,7 @@
             <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" Text="First name: "/>
             <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" Text="Last name: "/>
             <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" Text="BestFriendName: "/>
+
         </Grid>
     </DataTemplate>
 

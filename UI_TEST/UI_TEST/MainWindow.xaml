@@ -31,10 +31,14 @@
                     <ColumnDefinition />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <Button Content="Add" Grid.Column="0" Margin="10,10,0,0" />
+                <Button Command="{Binding AddFriend}" Content="Add" Grid.Column="0" Margin="10,10,0,0" />
                 <Button Content="Remove" Grid.Column="1" Margin="10,10,0,0" />
             </Grid>
         </Grid>
+        <ComboBox Grid.Column="1" Margin="10,140,10,229" 
+                  ItemsSource="{Binding People}"
+                  ItemTemplate="{StaticResource PersonNameView}"
+                  SelectedItem="{Binding Selection.BestFriend}"/>
         <ContentPresenter Grid.Column="1" Content="{Binding Selection}"
                           ContentTemplate="{StaticResource PersonDetailTemplate}" />
     </Grid>
