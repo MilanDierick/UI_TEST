@@ -32,7 +32,7 @@
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
                 <Button Command="{Binding AddFriend}" Content="Add" Grid.Column="0" Margin="10,10,0,0" />
-                <Button Content="Remove" Grid.Column="1" Margin="10,10,0,0" />
+                <Button Command="{Binding RemoveFriend}" Content="Remove" Grid.Column="1" Margin="10,10,0,0" />
             </Grid>
         </Grid>
         <ComboBox Grid.Column="1" Margin="10,140,10,229" 

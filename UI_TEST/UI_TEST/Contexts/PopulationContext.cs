@@ -17,17 +17,17 @@ namespace UI_TEST
             People = new ReactiveList<PersonContext>();
 
             this.AddFriend = ReactiveCommand.Create(
-                () => { People.Add(new PersonContext()); }
-            );
+                () => People.Add(new PersonContext()));
+
             this.RemoveFriend = ReactiveCommand.Create(
-                () => { People.Remove(Selection)) });
+                () => People.Remove(Selection));
 
             Selection = People.FirstOrDefault();
         }
 
         public ReactiveCommand<Unit, Unit> AddFriend { get; }
 
-        public ReactiveCommand<Unit, Unit> RemoveFriend { get; }
+        public ReactiveCommand<Unit, bool> RemoveFriend { get; }
 
         public ReactiveList<PersonContext> People { get; }
 
