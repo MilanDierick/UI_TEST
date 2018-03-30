@@ -13,6 +13,7 @@ namespace UI_TEST
     {
         private PersonContext _selection;
         private PersonContext _selectedFriend;
+        private ObservableAsPropertyHelper<bool> _hasSelection;
 
         public PopulationContext()
         {
@@ -21,23 +22,33 @@ namespace UI_TEST
             AddFriend = ReactiveCommand.Create(
                 () => People.Add(new PersonContext(this)));
 
-            RemoveFriend = ReactiveCommand.Create(
-                () =>
-                {
-                    var selection = Selection;
-                    if (selection == null)
-                        return false;
+            IObservable<bool> hasSelection = this
+                .WhenAnyValue(x => x.Selection)
+                .Select(s => s != null)
+                .DistinctUntilChanged();
 
-                    var wasRemoved = People.Remove(selection);
-                    selection.Dispose();
+            _hasSelection = hasSelection
+                .ToProperty(this, x => x.HasSelection);
 
-                    Selection = null;
+            bool FriendRemover()
+            {
+                var selection = Selection;
+                if (selection == null) return false;
 
-                    return wasRemoved;
-                });
+                var wasRemoved = People.Remove(selection);
+                selection.Dispose();
+
+                Selection = null;
+
+                return wasRemoved;
+            }
+
+            RemoveFriend = ReactiveCommand.Create(FriendRemover, hasSelection);
 
             Selection = People.FirstOrDefault();
         }
+
+        public bool HasSelection => _hasSelection.Value;
 
         public ReactiveCommand<Unit, Unit> AddFriend { get; }
 

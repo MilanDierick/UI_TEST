@@ -24,7 +24,7 @@
         <Button local:FlexPanel.Growth="1" Command="{Binding RemoveFriend}" Content="Remove"/>
       </local:FlexPanel>
     </local:FlexPanel>
-    <local:FlexPanel Orientation="Vertical" local:FlexPanel.Growth="1" HorizontalAlignment="Stretch" >
+    <local:FlexPanel Visibility="{Binding HasSelection, Converter={StaticResource BoolToVisibility}}" Orientation="Vertical" local:FlexPanel.Growth="1" HorizontalAlignment="Stretch" >
       <ContentPresenter Content="{Binding Selection}"
                         ContentTemplate="{StaticResource PersonDetailTemplate}" />
 

@@ -11,10 +11,10 @@
       <TextBox  Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged}"/>
 
       <Label Content="Full name: " HorizontalAlignment="Right"/>
-      <TextBox IsReadOnly="True" Text="{Binding FullName, UpdateSourceTrigger=PropertyChanged}"/>
+      <TextBlock Text="{Binding FullName,  UpdateSourceTrigger=PropertyChanged}"/>
 
       <Label Content="BestFriendName: " HorizontalAlignment="Right"/>
-      <TextBox IsReadOnly="True" Text="{Binding BestFriendName, UpdateSourceTrigger=PropertyChanged}"/>
+      <TextBlock Text="{Binding BestFriendName, UpdateSourceTrigger=PropertyChanged}"/>
     </local:LabelsPanel>
     </DataTemplate>
 
