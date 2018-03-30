@@ -4,16 +4,17 @@ using ReactiveUI;
 
 namespace UI_TEST
 {
-    public class PersonContext : ReactiveObject
+    public class PersonContext : ReactiveObject, IDisposable
     {
         private readonly ObservableAsPropertyHelper<string> _fullName;
         private readonly ObservableAsPropertyHelper<string> _bestFriendName;
+        private readonly IDisposable _itemsRemovedSubscription;
 
         private string _firstName = "Foo";
         private string _lastName = "Bar";
         private PersonContext _bestFriend;
 
-        public PersonContext()
+        public PersonContext(PopulationContext population)
         {
             _fullName = this
                 .WhenAnyValue(x => x.FirstName, x => x.LastName,
@@ -21,9 +22,18 @@ namespace UI_TEST
                 .ToProperty(this, x => x.FullName);
 
             _bestFriendName = this
-                .WhenAnyValue(x => x.BestFriend.FullName)
-                .Select(fullName => $"{fullName} is my best friend.")
+                .WhenAnyValue(x => x.BestFriend)
+                .Select(bf => bf == null 
+                    ? Observable.Return("I don't have a best friend") 
+                    : bf.WhenAnyValue(f => f.FullName).Select(fn => $"{fn} is my best friend."))
+                .Switch()
                 .ToProperty(this, x => x.BestFriendName);
+
+            _itemsRemovedSubscription = population.People.BeforeItemsRemoved
+                .Do(p => Console.WriteLine($@"{FullName} => Person removed {p?.FullName}"))
+                .Where(p => p == BestFriend)
+                .Select(p => (PersonContext)null)
+                .BindTo(this, x => x.BestFriend);
         }
 
         public string FirstName
@@ -48,5 +58,11 @@ namespace UI_TEST
 
         public string BestFriendName => _bestFriendName.Value;
 
+        public void Dispose()
+        {
+            _fullName?.Dispose();
+            _bestFriendName?.Dispose();
+            _itemsRemovedSubscription?.Dispose();
+        }
     }
 }

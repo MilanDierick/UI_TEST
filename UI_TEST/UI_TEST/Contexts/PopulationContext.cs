@@ -1,8 +1,10 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using ReactiveUI;
 
 namespace UI_TEST
@@ -11,19 +13,42 @@ namespace UI_TEST
     {
         private PersonContext _selection;
         private PersonContext _selectedFriend;
+        private ObservableAsPropertyHelper<bool> _hasSelection;
 
         public PopulationContext()
         {
             People = new ReactiveList<PersonContext>();
 
-            this.AddFriend = ReactiveCommand.Create(
-                () => People.Add(new PersonContext()));
+            AddFriend = ReactiveCommand.Create(
+                () => People.Add(new PersonContext(this)));
 
-            this.RemoveFriend = ReactiveCommand.Create(
-                () => People.Remove(Selection));
+            IObservable<bool> hasSelection = this
+                .WhenAnyValue(x => x.Selection)
+                .Select(s => s != null)
+                .DistinctUntilChanged();
+
+            _hasSelection = hasSelection
+                .ToProperty(this, x => x.HasSelection);
+
+            bool FriendRemover()
+            {
+                var selection = Selection;
+                if (selection == null) return false;
+
+                var wasRemoved = People.Remove(selection);
+                selection.Dispose();
+
+                Selection = null;
+
+                return wasRemoved;
+            }
+
+            RemoveFriend = ReactiveCommand.Create(FriendRemover, hasSelection);
 
             Selection = People.FirstOrDefault();
         }
+
+        public bool HasSelection => _hasSelection.Value;
 
         public ReactiveCommand<Unit, Unit> AddFriend { get; }
 

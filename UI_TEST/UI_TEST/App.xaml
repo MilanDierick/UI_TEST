@@ -9,6 +9,7 @@
                 <ResourceDictionary Source="Templates/PersonDetailView.xaml"/>
                 <ResourceDictionary Source="Templates/PersonNameView.xaml"/>
                 </ResourceDictionary.MergedDictionaries>
+          <BooleanToVisibilityConverter x:Key="BoolToVisibility"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
