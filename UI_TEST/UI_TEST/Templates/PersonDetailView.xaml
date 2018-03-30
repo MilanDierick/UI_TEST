@@ -2,35 +2,20 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:UI_TEST">
 
-    <DataTemplate x:Key="PersonDetailTemplate" DataType="{x:Type local:PersonContext}">
-        <Grid VerticalAlignment="Top">
-            <Grid.Resources>
-                <Style TargetType="TextBlock">
-                    <Setter Property="Padding" Value="5"/>
-                </Style>
-            </Grid.Resources>
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
+  <DataTemplate x:Key="PersonDetailTemplate" DataType="{x:Type local:PersonContext}">
+    <local:LabelsPanel VerticalSpacing="10">
+      <Label Content="First name: " HorizontalAlignment="Right" />
+      <TextBox Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged}"/>
 
-            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged}"/>
-            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged}"/>
-            <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding FullName, UpdateSourceTrigger=PropertyChanged}"/>
-            <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding BestFriendName, UpdateSourceTrigger=PropertyChanged}"/>
+      <Label Content="Last name: " HorizontalAlignment="Right"/>
+      <TextBox  Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged}"/>
 
-            <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" Text="First name: "/>
-            <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" Text="Last name: "/>
-            <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" Text="Full name: "/>
-            <TextBlock Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" Text="BestFriendName: "/>
+      <Label Content="Full name: " HorizontalAlignment="Right"/>
+      <TextBox IsReadOnly="True" Text="{Binding FullName, UpdateSourceTrigger=PropertyChanged}"/>
 
-        </Grid>
+      <Label Content="BestFriendName: " HorizontalAlignment="Right"/>
+      <TextBox IsReadOnly="True" Text="{Binding BestFriendName, UpdateSourceTrigger=PropertyChanged}"/>
+    </local:LabelsPanel>
     </DataTemplate>
 
 </ResourceDictionary>

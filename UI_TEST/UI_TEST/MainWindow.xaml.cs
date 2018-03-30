@@ -24,9 +24,7 @@ namespace UI_TEST
         {
             InitializeComponent();
 
-            DataContext = new PopulationContext()
-            {
-            };
+            DataContext = new PopulationContext();
         }
 
         protected override AutomationPeer OnCreateAutomationPeer()

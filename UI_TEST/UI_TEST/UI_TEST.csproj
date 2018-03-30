@@ -45,6 +45,9 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Interactive, Version=3.0.1000.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Interactive.3.1.1\lib\net45\System.Interactive.dll</HintPath>
+    </Reference>
     <Reference Include="System.Reactive.Core, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Rx-Core.2.2.5\lib\net45\System.Reactive.Core.dll</HintPath>
     </Reference>
@@ -87,7 +90,11 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Contexts\PersonContext.cs" />
+    <Compile Include="Controls\ByRefComparer.cs" />
+    <Compile Include="Controls\LabelsPanel.cs" />
     <Compile Include="FakeWindowsPeer.cs" />
+    <Compile Include="Controls\FlexPanel.cs" />
+    <Compile Include="Controls\Layout.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

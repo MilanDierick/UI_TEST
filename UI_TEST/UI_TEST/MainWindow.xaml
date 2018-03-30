@@ -6,14 +6,39 @@
         xmlns:local="clr-namespace:UI_TEST"
         mc:Ignorable="d"
         FontSize="24"
-        SizeToContent="Height" d:DesignHeight="441.055">
-    <d:DesignProperties.DataContext>
-        <local:PopulationContext />
-    </d:DesignProperties.DataContext>
+        Width="800"
+        Height="500"
+        d:DesignHeight="441.055">
+  <d:DesignProperties.DataContext>
+    <local:PopulationContext />
+  </d:DesignProperties.DataContext>
 
-    <Grid>
+  <local:FlexPanel Orientation="Horizontal" Margin="10">
+    <local:FlexPanel Orientation="Vertical" local:FlexPanel.Growth="1" >
+      <ListBox local:FlexPanel.Growth="1"
+               ItemsSource="{Binding People}"
+               SelectedItem="{Binding Selection}"
+               ItemTemplate="{StaticResource PersonNameView}" />
+      <local:FlexPanel Orientation="Horizontal">
+        <Button local:FlexPanel.Growth="1" Command="{Binding AddFriend}" Content="Add" />
+        <Button local:FlexPanel.Growth="1" Command="{Binding RemoveFriend}" Content="Remove"/>
+      </local:FlexPanel>
+    </local:FlexPanel>
+    <local:FlexPanel Orientation="Vertical" local:FlexPanel.Growth="1" HorizontalAlignment="Stretch" >
+      <ContentPresenter Content="{Binding Selection}"
+                        ContentTemplate="{StaticResource PersonDetailTemplate}" />
+
+      <ComboBox 
+        ItemsSource="{Binding People}"
+        ItemTemplate="{StaticResource PersonNameView}"
+        SelectedItem="{Binding Selection.BestFriend}"/>
+    </local:FlexPanel>
+  </local:FlexPanel>
+
+  <!--<Grid Margin="20">
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
+            <ColumnDefinition Width="20"/>
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="0">
@@ -34,7 +59,7 @@
                 <Button Command="{Binding RemoveFriend}" Content="Remove" Grid.Column="1" Margin="10,10,0,0" />
             </Grid>
         </Grid>
-        <StackPanel Grid.Column="1" Orientation="Vertical">
+        <StackPanel Grid.Column="2" Orientation="Vertical">
             <ContentPresenter Content="{Binding Selection}"
                               ContentTemplate="{StaticResource PersonDetailTemplate}" />
 
@@ -44,7 +69,7 @@
                 SelectedItem="{Binding Selection.BestFriend}"/>
 
         </StackPanel>
-    </Grid>
+    </Grid>-->
 
 
 </Window>
