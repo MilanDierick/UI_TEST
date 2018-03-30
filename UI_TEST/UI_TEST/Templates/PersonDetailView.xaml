@@ -22,11 +22,13 @@
 
             <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged}"/>
             <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged}"/>
-            <TextBlock x:Name="GreetingTextBlock" Grid.Row="2" Grid.Column="1" Text="{Binding BestFriendName}"/>
+            <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding FullName, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding BestFriendName, UpdateSourceTrigger=PropertyChanged}"/>
 
             <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" Text="First name: "/>
             <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" Text="Last name: "/>
-            <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" Text="BestFriendName: "/>
+            <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" Text="Full name: "/>
+            <TextBlock Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" Text="BestFriendName: "/>
 
         </Grid>
     </DataTemplate>

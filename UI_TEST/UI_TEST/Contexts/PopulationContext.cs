@@ -1,8 +1,10 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using ReactiveUI;
 
 namespace UI_TEST
@@ -16,11 +18,23 @@ namespace UI_TEST
         {
             People = new ReactiveList<PersonContext>();
 
-            this.AddFriend = ReactiveCommand.Create(
-                () => People.Add(new PersonContext()));
+            AddFriend = ReactiveCommand.Create(
+                () => People.Add(new PersonContext(this)));
 
-            this.RemoveFriend = ReactiveCommand.Create(
-                () => People.Remove(Selection));
+            RemoveFriend = ReactiveCommand.Create(
+                () =>
+                {
+                    var selection = Selection;
+                    if (selection == null)
+                        return false;
+
+                    var wasRemoved = People.Remove(selection);
+                    selection.Dispose();
+
+                    Selection = null;
+
+                    return wasRemoved;
+                });
 
             Selection = People.FirstOrDefault();
         }

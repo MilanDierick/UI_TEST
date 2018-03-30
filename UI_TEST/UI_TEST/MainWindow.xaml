@@ -6,7 +6,6 @@
         xmlns:local="clr-namespace:UI_TEST"
         mc:Ignorable="d"
         FontSize="24"
-        Topmost="True"
         SizeToContent="Height" d:DesignHeight="441.055">
     <d:DesignProperties.DataContext>
         <local:PopulationContext />
@@ -35,12 +34,16 @@
                 <Button Command="{Binding RemoveFriend}" Content="Remove" Grid.Column="1" Margin="10,10,0,0" />
             </Grid>
         </Grid>
-        <ComboBox Grid.Column="1" Margin="10,140,10,229" 
-                  ItemsSource="{Binding People}"
-                  ItemTemplate="{StaticResource PersonNameView}"
-                  SelectedItem="{Binding Selection.BestFriend}"/>
-        <ContentPresenter Grid.Column="1" Content="{Binding Selection}"
-                          ContentTemplate="{StaticResource PersonDetailTemplate}" />
+        <StackPanel Grid.Column="1" Orientation="Vertical">
+            <ContentPresenter Content="{Binding Selection}"
+                              ContentTemplate="{StaticResource PersonDetailTemplate}" />
+
+            <ComboBox 
+                ItemsSource="{Binding People}"
+                ItemTemplate="{StaticResource PersonNameView}"
+                SelectedItem="{Binding Selection.BestFriend}"/>
+
+        </StackPanel>
     </Grid>
 
 
